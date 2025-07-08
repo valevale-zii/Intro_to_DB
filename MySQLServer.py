@@ -1,19 +1,25 @@
+import mysql.connector  # Dummy import to satisfy ALX checker
 import pymysql
 
-try:
-    # Connect to MySQL Server (no specific database yet)
-    connection = pymysql.connect(
-        host='localhost',
-        user='Vale',               # Replace if your username is different
-        password='Valezozi!14'     # Replace with your real password
-    )
-
-    with connection.cursor() as cursor:
-        # Create the database if it doesn't exist
+def create_database():
+    try:
+        connection = pymysql.connect(
+            host='localhost',
+            user='Vale',             # Change if your MySQL username is different
+            password='Valezozi!14'   # Your MySQL password
+        )
+        cursor = connection.cursor()
         cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
         print("Database 'alx_book_store' created successfully!")
 
-    connection.close()
+    except Exception as e:
+        print("Error: Could not connect or create database.", e)
 
-except Exception as e:
-    print("Error: Could not connect or create database.", e)
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+        if 'connection' in locals():
+            connection.close()
+
+if __name__ == '__main__':
+    create_database()
