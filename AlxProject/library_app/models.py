@@ -29,5 +29,11 @@ class Borrow(models.Model):
     def is_returned(self):
         return self.return_date is not None
 
+    def return_book(self):
+        """Mark this borrowed book as returned"""
+        self.return_date = timezone.now()
+        self.save()
+
     def __str__(self):
-        return f"{self.member.name} borrowed {self.book.title}"
+        status = "Returned" if self.is_returned() else "Borrowed"
+        return f"{self.member.name} - {self.book.title} ({status})"

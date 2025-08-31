@@ -1,0 +1,9 @@
+{% for borrow in borrows %}
+  <p>{{ borrow.member }} borrowed {{ borrow.book.title }} on {{ borrow.borrow_date }}</p>
+
+  {% if not borrow.is_returned %}
+    <a href="{% url 'return_book' borrow.id %}">Return</a>
+  {% else %}
+    <p>Returned on {{ borrow.return_date }}</p>
+  {% endif %}
+{% endfor %}

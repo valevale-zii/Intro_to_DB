@@ -1,11 +1,6 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import BookViewSet, MemberViewSet
-
-router = DefaultRouter()
-router.register(r'books', BookViewSet)
-router.register(r'members', MemberViewSet)
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('return/<int:borrow_id>/', views.return_book, name='return_book'),
 ]
